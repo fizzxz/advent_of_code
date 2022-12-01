@@ -18,14 +18,14 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 	var calories []int
-	calories = getListOfCals(scanner, calories)
+	calories = getSliceOfCals(scanner, calories)
 	sort.Ints(calories)
 	fmt.Println(calories[len(calories)-1])
 	fmt.Println(calories[len(calories)-1] + calories[len(calories)-2] + calories[len(calories)-3])
 
 }
 
-func getListOfCals(scanner *bufio.Scanner, calories []int) []int {
+func getSliceOfCals(scanner *bufio.Scanner, calories []int) []int {
 	var calCount int
 	for scanner.Scan() {
 		if len(scanner.Text()) == 0 {
