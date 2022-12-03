@@ -20,19 +20,28 @@ func main() {
 	prioritySum := 0
 
 	for scanner.Scan() {
-		text := len(scanner.Text()) / 2
-		textFirstHalf := scanner.Text()[:text]
-		textSecondHalf := scanner.Text()[text:]
-
-		for i := range textFirstHalf {
-			if strings.Contains(textSecondHalf, string(textFirstHalf[i])) {
-				commonString := string(textFirstHalf[lastIndexAny(textFirstHalf, string(textFirstHalf[i]))])
-				prioritySum += lastIndexAny(abc, commonString)
-				break
-			}
-		}
+		prioritySum = splitLine_FindCommonString_ReturnPrioritySum(scanner, prioritySum)
 	}
 	fmt.Println(prioritySum)
+}
+
+func splitLine_FindCommonString_ReturnPrioritySum(scanner *bufio.Scanner, prioritySum int) int {
+	text := len(scanner.Text()) / 2
+	textFirstHalf := scanner.Text()[:text]
+	textSecondHalf := scanner.Text()[text:]
+
+	for i := range textFirstHalf {
+		if strings.Contains(textSecondHalf, string(textFirstHalf[i])) {
+			commonString := findCommonString(textFirstHalf, i)
+			prioritySum += lastIndexAny(abc, commonString)
+			break
+		}
+	}
+	return prioritySum
+}
+
+func findCommonString(strToLookInto string, indexOfStr int) string {
+	return string(strToLookInto[lastIndexAny(strToLookInto, string(strToLookInto[indexOfStr]))])
 }
 
 func lastIndexAny(i, x string) int {
