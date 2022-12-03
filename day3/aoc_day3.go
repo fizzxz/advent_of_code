@@ -30,7 +30,7 @@ func main() {
 		threeLinesGrouped = append(threeLinesGrouped, line)
 		if len(threeLinesGrouped) == 3 {
 
-			prioritySum2 = LinesOfThree_findCommonString_ReturnPrioritySum(threeLinesGrouped, prioritySum2)
+			prioritySum2 = linesOfThree_FindCommonString_ReturnPrioritySum(threeLinesGrouped, prioritySum2)
 			threeLinesGrouped = nil
 
 		}
@@ -42,7 +42,7 @@ func main() {
 	log.Printf("Task 1 and 2 took %s", elapsed)
 }
 
-func LinesOfThree_findCommonString_ReturnPrioritySum(Groupedlines []string, prioritySum int) int {
+func linesOfThree_FindCommonString_ReturnPrioritySum(Groupedlines []string, prioritySum int) int {
 	line1 := Groupedlines[0]
 	line2 := Groupedlines[1]
 	line3 := Groupedlines[2]
