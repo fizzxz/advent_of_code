@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"strings"
+	"time"
 )
 
 const abc = ".abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
 
 func main() {
+	start := time.Now()
 	file, err := os.Open("input.txt")
 	if err != nil {
 		log.Fatal(err)
@@ -29,7 +30,7 @@ func main() {
 		threeLinesGrouped = append(threeLinesGrouped, line)
 		if len(threeLinesGrouped) == 3 {
 
-			prioritySum2 = findCommonString_ReturnPrioritySum(threeLinesGrouped, prioritySum2)
+			prioritySum2 = LinesOfThree_findCommonString_ReturnPrioritySum(threeLinesGrouped, prioritySum2)
 			threeLinesGrouped = nil
 
 		}
@@ -37,9 +38,11 @@ func main() {
 	fmt.Printf("Priority sum for task part 1: %d", prioritySum1)
 	fmt.Println(" ")
 	fmt.Printf("Priority sum for task part 2: %d", prioritySum2)
+	elapsed := time.Since(start)
+	log.Printf("Task 1 and 2 took %s", elapsed)
 }
 
-func findCommonString_ReturnPrioritySum(Groupedlines []string, prioritySum int) int {
+func LinesOfThree_findCommonString_ReturnPrioritySum(Groupedlines []string, prioritySum int) int {
 	line1 := Groupedlines[0]
 	line2 := Groupedlines[1]
 	line3 := Groupedlines[2]
@@ -74,15 +77,4 @@ func findCommonString(strToLookInto string, indexOfStr int) string {
 
 func lastIndexAny(i, x string) int {
 	return strings.LastIndexAny(i, x)
-}
-
-func IsIntDivisibleBy3(n int) bool {
-	digits := strconv.Itoa(n)
-	sumOfDigits := 0
-	for _, digit := range digits {
-		d, _ := strconv.Atoi(string(digit))
-		sumOfDigits += d
-	}
-
-	return (sumOfDigits % 3) == 0
 }
