@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -17,18 +18,45 @@ func main() {
 	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
-	prioritySum := 0
+	prioritySum1 := 0
+	prioritySum2 := 0
 
+	var threeLinesGrouped []string
 	for scanner.Scan() {
-		prioritySum = splitLine_FindCommonString_ReturnPrioritySum(scanner, prioritySum)
+		line := scanner.Text()
+		prioritySum1 = splitLine_FindCommonString_ReturnPrioritySum(line, prioritySum1)
+
+		threeLinesGrouped = append(threeLinesGrouped, line)
+		if len(threeLinesGrouped) == 3 {
+
+			prioritySum2 = findCommonString_ReturnPrioritySum(threeLinesGrouped, prioritySum2)
+			threeLinesGrouped = nil
+
+		}
 	}
-	fmt.Println(prioritySum)
+	fmt.Printf("Priority sum for task part 1: %d", prioritySum1)
+	fmt.Println(" ")
+	fmt.Printf("Priority sum for task part 2: %d", prioritySum2)
 }
 
-func splitLine_FindCommonString_ReturnPrioritySum(scanner *bufio.Scanner, prioritySum int) int {
-	text := len(scanner.Text()) / 2
-	textFirstHalf := scanner.Text()[:text]
-	textSecondHalf := scanner.Text()[text:]
+func findCommonString_ReturnPrioritySum(Groupedlines []string, prioritySum int) int {
+	line1 := Groupedlines[0]
+	line2 := Groupedlines[1]
+	line3 := Groupedlines[2]
+	for i := range line1 {
+		if strings.Contains(line2, string(line1[i])) && strings.Contains(line3, string(line1[i])) {
+			commonString := findCommonString(line1, i)
+			prioritySum += lastIndexAny(abc, commonString)
+			break
+		}
+	}
+	return prioritySum
+}
+
+func splitLine_FindCommonString_ReturnPrioritySum(line string, prioritySum int) int {
+	text := len(line) / 2
+	textFirstHalf := line[:text]
+	textSecondHalf := line[text:]
 
 	for i := range textFirstHalf {
 		if strings.Contains(textSecondHalf, string(textFirstHalf[i])) {
@@ -46,4 +74,15 @@ func findCommonString(strToLookInto string, indexOfStr int) string {
 
 func lastIndexAny(i, x string) int {
 	return strings.LastIndexAny(i, x)
+}
+
+func IsIntDivisibleBy3(n int) bool {
+	digits := strconv.Itoa(n)
+	sumOfDigits := 0
+	for _, digit := range digits {
+		d, _ := strconv.Atoi(string(digit))
+		sumOfDigits += d
+	}
+
+	return (sumOfDigits % 3) == 0
 }
