@@ -38,6 +38,7 @@ func main() {
 	fmt.Printf("Priority sum for task part 1: %d", prioritySum1)
 	fmt.Println(" ")
 	fmt.Printf("Priority sum for task part 2: %d", prioritySum2)
+	fmt.Println(" ")
 	elapsed := time.Since(start)
 	log.Printf("Task 1 and 2 took %s", elapsed)
 }
@@ -47,7 +48,8 @@ func linesOfThree_FindCommonString_ReturnPrioritySum(Groupedlines []string, prio
 	line2 := Groupedlines[1]
 	line3 := Groupedlines[2]
 	for i := range line1 {
-		if strings.Contains(line2, string(line1[i])) && strings.Contains(line3, string(line1[i])) {
+		if strings.Contains(line2, string(line1[i])) &&
+			strings.Contains(line3, string(line1[i])) {
 			commonString := findCommonString(line1, i)
 			prioritySum += lastIndexAny(abc, commonString)
 			break
