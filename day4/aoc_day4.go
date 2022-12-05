@@ -40,7 +40,7 @@ func main() {
 	fmt.Printf("Sum of part2: %v", part2Sum)
 	fmt.Println(" ")
 	elapsed := time.Since(start)
-	log.Printf("Task 1 took %s", elapsed)
+	log.Printf("Task 1 and 2 took %s", elapsed)
 }
 
 func sequenceOfDigitsFromString(input string) []int {
