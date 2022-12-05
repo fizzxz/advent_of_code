@@ -18,7 +18,8 @@ func main() {
 	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
-	count1 := 0
+	part1Sum, part2Sum := 0, 0
+
 	for scanner.Scan() {
 
 		line := scanner.Text()
@@ -27,11 +28,16 @@ func main() {
 		secondSeq := []int{}
 		firstSeq = sequenceOfDigitsFromString(splitLine[0])
 		secondSeq = sequenceOfDigitsFromString(splitLine[1])
-		if isElementInSlice(firstSeq, secondSeq) || isElementInSlice(secondSeq, firstSeq) {
-			count1++
+		if isIntInSlicePart1(firstSeq, secondSeq) || isIntInSlicePart1(secondSeq, firstSeq) {
+			part1Sum++
+		}
+		if isIntInSlicePart2(firstSeq, secondSeq) {
+			part2Sum++
 		}
 	}
-	fmt.Println(count1)
+	fmt.Printf("Sum of part1: %v", part1Sum)
+	fmt.Println(" ")
+	fmt.Printf("Sum of part2: %v", part2Sum)
 	fmt.Println(" ")
 	elapsed := time.Since(start)
 	log.Printf("Task 1 took %s", elapsed)
@@ -57,7 +63,7 @@ func sequenceOfDigitsFromTwoDigits(input []int) []int {
 	return output
 }
 
-func isElementInSlice(searchIn []int, searchFrom []int) bool {
+func isIntInSlicePart1(searchIn []int, searchFrom []int) bool {
 	count := 0
 	for _, whatToLookFor := range searchFrom {
 		if find(whatToLookFor, searchIn) {
@@ -68,6 +74,20 @@ func isElementInSlice(searchIn []int, searchFrom []int) bool {
 		}
 	}
 	return false
+}
+
+func isIntInSlicePart2(searchIn []int, searchFrom []int) bool {
+	count := 0
+	for _, whatToLookFor := range searchFrom {
+		if find(whatToLookFor, searchIn) {
+			count++
+		}
+	}
+	if count > 0 {
+		return true
+	} else {
+		return false
+	}
 }
 
 func find(input int, valuesToSearch []int) bool {
