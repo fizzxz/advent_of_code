@@ -51,10 +51,10 @@ func sequenceOfDigitsFromString(input string) []int {
 		x, _ = strconv.Atoi(val)
 		numbers = append(numbers, x)
 	}
-	return sequenceOfDigitsFromTwoDigits(numbers)
+	return sequenceOfDigitsFromSlice(numbers)
 }
 
-func sequenceOfDigitsFromTwoDigits(input []int) []int {
+func sequenceOfDigitsFromSlice(input []int) []int {
 	output := []int{}
 	for i := input[0]; i <= input[1]; i++ {
 		output = append(output, i)
